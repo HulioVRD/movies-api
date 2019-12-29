@@ -1,0 +1,10 @@
+{
+    "type": "postgres",
+    "host": "localhost",
+    "port": 5434,
+    "username": "postgres",
+    "password": "root",
+    "database": "movies-api",
+    "entities": ["dist/**/*.entity{.ts,.js}"],
+    "synchronize": true
+  }
