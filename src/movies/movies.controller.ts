@@ -2,7 +2,10 @@ import { Controller, Get, Post, Body, Param, ParseUUIDPipe } from '@nestjs/commo
 import { MoviesService } from './movies.service';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { Movie } from './movie.entity';
+import { ApiTags, ApiResponse, ApiNotFoundResponse, ApiBadGatewayResponse, ApiBadRequestResponse } from '@nestjs/swagger';
+import { ErrorResponse } from '../errors/error-response.class';
 
+@ApiTags('movies')
 @Controller('movies')
 export class MoviesController {
     constructor(private moviesService: MoviesService) { };
@@ -13,6 +16,7 @@ export class MoviesController {
     } 
 
     @Get('/:uuid')
+    @ApiNotFoundResponse({ description: "Movie not found.", type: ErrorResponse})
     async getMovieByUuid(
       @Param('uuid', ParseUUIDPipe) uuid: string
     ): Promise<Movie> {
@@ -20,6 +24,7 @@ export class MoviesController {
     } 
 
     @Post()
+    @ApiBadRequestResponse({ description: "Bad request.", type: ErrorResponse})
     async createMovie(
       @Body() createMovieDto: CreateMovieDto
     ): Promise<Movie> {
