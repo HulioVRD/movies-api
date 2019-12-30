@@ -27,7 +27,7 @@ $ npm run start:prod
 ```
 ## Docs
 
-Documentation is available 
+Swagger documentation is available under the '/docs' endpoint
 
 ## Test
 
