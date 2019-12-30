@@ -36,7 +36,7 @@ export class MoviesService {
         const metadata = getMoviesDetailsResult.data;
 
         if (metadata.Error) {
-          throw new BadRequestException(metadata.Error);
+          throw new BadRequestException('Cannot fetch movie data from omdbapi');
         }
 
         delete metadata.Title;

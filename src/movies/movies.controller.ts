@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Param, ParseUUIDPipe } from '@nestjs/commo
 import { MoviesService } from './movies.service';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { Movie } from './movie.entity';
-import { ApiTags, ApiResponse, ApiNotFoundResponse, ApiBadGatewayResponse, ApiBadRequestResponse } from '@nestjs/swagger';
+import { ApiTags, ApiNotFoundResponse, ApiBadRequestResponse } from '@nestjs/swagger';
 import { ErrorResponse } from '../errors/error-response.class';
 
 @ApiTags('movies')
