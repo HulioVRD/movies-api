@@ -5,6 +5,8 @@
   "author": "",
   "license": "MIT",
   "scripts": {
+    "heroku:push": "heroku container:push --recursive --context-path .",
+    "heroku:release": "heroku container:release web",
     "prebuild": "rimraf dist",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
