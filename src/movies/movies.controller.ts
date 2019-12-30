@@ -12,7 +12,7 @@ export class MoviesController {
 
     @Get()
     async getMovies(): Promise<Movie[]> {
-        return this.moviesService.getMovies();
+      return this.moviesService.getMovies();
     } 
 
     @Get('/:uuid')
@@ -20,7 +20,7 @@ export class MoviesController {
     async getMovieByUuid(
       @Param('uuid', ParseUUIDPipe) uuid: string
     ): Promise<Movie> {
-        return this.moviesService.getMovieByUuid(uuid);
+      return this.moviesService.getMovieByUuid(uuid);
     } 
 
     @Post()
@@ -28,6 +28,6 @@ export class MoviesController {
     async createMovie(
       @Body() createMovieDto: CreateMovieDto
     ): Promise<Movie> {
-        return this.moviesService.createMovie(createMovieDto);
+      return this.moviesService.createMovie(createMovieDto);
     }
 }

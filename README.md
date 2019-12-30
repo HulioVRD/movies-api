@@ -1,11 +1,11 @@
 ## Requirements
 
-Project is configurated to use PostgreSQL Database.
+Project is using Nest.js framework and PostgreSQL Database. Default port is set to 5000.
 
 You need to create two databases:
 
-<p>movies-api - development database</p>
-<p>movies-api-test - tests database</p>
+<p><strong>movies-api</strong> - development database</p>
+<p><strong>movies-api-test</strong> - tests database</p>
 
 ## Installation
 
@@ -25,6 +25,9 @@ $ npm run start:dev
 # production mode
 $ npm run start:prod
 ```
+## Docs
+
+Documentation is available 
 
 ## Test
 

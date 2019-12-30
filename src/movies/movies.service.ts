@@ -7,42 +7,42 @@ import axios from 'axios';
 
 @Injectable()
 export class MoviesService {
-    constructor(
-        @InjectRepository(MovieRepository)
-        private movieRepository: MovieRepository,
-    ) {}
+  constructor(
+    @InjectRepository(MovieRepository)
+    private movieRepository: MovieRepository,
+  ) {}
 
 
-    async getMovies(): Promise<Movie[]> {
-      return this.movieRepository.find();
+  async getMovies(): Promise<Movie[]> {
+    return this.movieRepository.find();
+  }
+
+  async getMovieByUuid(uuid: string): Promise<Movie> {
+    const found = await this.movieRepository.findOne({ where: { uuid } });
+
+    if (!found) {
+      throw new NotFoundException(`Movie with uuid "${uuid}" not found`);
     }
 
-    async getMovieByUuid(uuid: string): Promise<Movie> {
-      const found = await this.movieRepository.findOne({ where: { uuid } });
+    return found;
+  }
 
-      if (!found) {
-        throw new NotFoundException(`Movie with uuid "${uuid}" not found`);
-      }
-  
-      return found;
+  async createMovie(createMovieDto: CreateMovieDto): Promise<Movie> {
+    let { title, year } = createMovieDto;
+    title = encodeURIComponent(title);
+    
+    const getMoviesDetailsResult = await axios.get(`http://www.omdbapi.com/?t=${title}&y=${year}&apikey=${process.env.OMDBAPI_KEY}`);
+
+    const metadata = getMoviesDetailsResult.data;
+
+    if (metadata.Error) {
+      throw new BadRequestException('Cannot fetch movie data from omdbapi');
     }
 
-    async createMovie(createMovieDto: CreateMovieDto): Promise<Movie> {
-        let { title, year } = createMovieDto;
-        title = encodeURIComponent(title);
-        
-        const getMoviesDetailsResult = await axios.get(`http://www.omdbapi.com/?t=${title}&y=${year}&apikey=${process.env.OMDBAPI_KEY}`);
+    delete metadata.Title;
+    delete metadata.Year;
+    delete metadata.Response;
 
-        const metadata = getMoviesDetailsResult.data;
-
-        if (metadata.Error) {
-          throw new BadRequestException('Cannot fetch movie data from omdbapi');
-        }
-
-        delete metadata.Title;
-        delete metadata.Year;
-        delete metadata.Response;
-
-        return this.movieRepository.createMovie(createMovieDto, JSON.stringify(metadata));
-    }
+    return this.movieRepository.createMovie(createMovieDto, JSON.stringify(metadata));
+  }
 }
