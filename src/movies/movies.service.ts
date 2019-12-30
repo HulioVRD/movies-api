@@ -1,4 +1,4 @@
-import { Injectable, BadRequestException } from '@nestjs/common';
+import { Injectable, BadRequestException, NotFoundException } from '@nestjs/common';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { MovieRepository } from './movie.repository';
@@ -14,7 +14,17 @@ export class MoviesService {
 
 
     async getMovies(): Promise<Movie[]> {
-        return this.movieRepository.find({ select: ["uuid", "title", "year", "metadata"]});
+      return this.movieRepository.find();
+    }
+
+    async getMovieByUuid(uuid: string): Promise<Movie> {
+      const found = await this.movieRepository.findOne({ where: { uuid } });
+
+      if (!found) {
+        throw new NotFoundException(`Movie with uuid "${uuid}" not found`);
+      }
+  
+      return found;
     }
 
     async createMovie(createMovieDto: CreateMovieDto): Promise<Movie> {

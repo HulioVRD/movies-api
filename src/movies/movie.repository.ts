@@ -7,7 +7,7 @@ import { InternalServerErrorException, Logger } from "@nestjs/common";
 export class MovieRepository extends Repository<Movie> {
   private logger = new Logger('MovieRepository');
 
-  async createMovie(createMovieDto: CreateMovieDto, metadata: string) {
+  async createMovie(createMovieDto: CreateMovieDto, metadata: string): Promise<Movie> {
     const { title, year } = createMovieDto;
 
     const movie = new Movie();
@@ -22,8 +22,6 @@ export class MovieRepository extends Repository<Movie> {
       this.logger.error(`Failed to create a movie "${movie.title}". Data: ${createMovieDto}`, error.stack);
       throw new InternalServerErrorException();
     }
-
-    delete movie.id;
 
     return movie;
   }

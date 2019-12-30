@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, ParseUUIDPipe } from '@nestjs/common';
 import { MoviesService } from './movies.service';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { Movie } from './movie.entity';
@@ -12,8 +12,17 @@ export class MoviesController {
         return this.moviesService.getMovies();
     } 
 
+    @Get('/:uuid')
+    async getMovieByUuid(
+      @Param('uuid', ParseUUIDPipe) uuid: string
+    ): Promise<Movie> {
+        return this.moviesService.getMovieByUuid(uuid);
+    } 
+
     @Post()
-    async createMovie(@Body() createMovieDto: CreateMovieDto): Promise<Movie> {
+    async createMovie(
+      @Body() createMovieDto: CreateMovieDto
+    ): Promise<Movie> {
         return this.moviesService.createMovie(createMovieDto);
     }
 }

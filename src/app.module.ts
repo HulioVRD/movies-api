@@ -3,11 +3,12 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { MoviesModule } from './movies/movies.module';
+import { CommentsModule } from './comments/comments.module';
 
 import * as morgan from 'morgan';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(), MoviesModule],
+  imports: [TypeOrmModule.forRoot(), MoviesModule, CommentsModule],
   controllers: [AppController],
   providers: [AppService],
 })
