@@ -4,8 +4,8 @@ Project is configurated to use PostgreSQL Database.
 
 You need to create two databases:
 
-movies-api - development database
-movies-api-test - tests database
+<p>movies-api - development database</p>
+<p>movies-api-test - tests database</p>
 
 ## Installation
 
