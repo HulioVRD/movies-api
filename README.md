@@ -7,6 +7,10 @@ You need to create two databases:
 <p><strong>movies-api</strong> - development database</p>
 <p><strong>movies-api-test</strong> - tests database</p>
 
+## Docs
+
+Swagger documentation is available under the '/docs' endpoint
+
 ## Installation
 
 ```bash
@@ -25,9 +29,6 @@ $ npm run start:dev
 # production mode
 $ npm run start:prod
 ```
-## Docs
-
-Swagger documentation is available under the '/docs' endpoint
 
 ## Test
 
